@@ -5,7 +5,10 @@
 // It moves two pictures around on the canvas.
 // One moves linearly down the screen.
 // One moves toward the mouse cursor.
-
+//image thing
+var myImage;
+var myImageX;
+var myImageY;
 
 // The image of a clown face
 var clownImage;
@@ -27,6 +30,7 @@ var feltTextureImageY;
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
+  myImage = loadImage("assets/images/myImage.jpg")
 }
 
 
@@ -45,6 +49,7 @@ function setup() {
   // Start the felt image perfectly off screen above the canvas
   feltTextureImageX = width/2;
   feltTextureImageY = 0 - feltTextureImage.height/2;
+  //
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -57,7 +62,10 @@ function setup() {
 // Moves the clown face toward the current mouse location
 
 function draw() {
-
+// move my image by increasing its x position
+myimageX += 1;
+// Display my image
+image(myImage,myImageX,0)
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
 
