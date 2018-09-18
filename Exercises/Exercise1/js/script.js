@@ -8,11 +8,13 @@
 
 // The image of a clown face
 var clownImage;
+//image of meme2
+var memeImage2;
 //image of meme
-var memeImage
+var memeImage;
 //position of meme image
-var memeImageX
-var memeImageY
+var memeImageX;
+var memeImageY;
 //The Image of pixel Dirt
 var dirtImage;
 //X and Y Position of Pixel Dirt
@@ -38,6 +40,8 @@ function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   memeImage = loadImage("assets/images/meme.jpg");
+  memeImage2 = loadImage("assets/images/meme2.jpg");
+
 }
 
 
