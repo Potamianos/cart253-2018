@@ -77,6 +77,8 @@ function setup() {
 // Moves the clown face toward the current mouse location
 
 function draw() {
+  //create image that is at the mouse's xy
+  image(memeImage2,mouseX,mouseY,100,100);
 
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
