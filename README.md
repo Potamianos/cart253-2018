@@ -5,3 +5,4 @@ and a __succulent sandbox__.
 - [Pippin's homepage](https://www.pippinbarr.com/)
 - [Pippin's Twitter](https://www.twitter.com/pippinbarr)
 - [Pippin's Instagram](https://www.instagram.com/pippinbarr)
+- [My Exercises](https://potamianos.github.io/cart253-2018/Exercises/Exercise1)
