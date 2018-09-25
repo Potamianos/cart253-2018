@@ -6,6 +6,7 @@ Pippin Barr
 Starter code for exercise 2.
 
 *********************************************************/
+var enemyImage;
 var avatarImage;
 // The position and size of our avatar circle
 var avatarX;
@@ -57,9 +58,13 @@ function setup() {
 //
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
+function preload() {
+avatarImage = loadImage("images/avatarImage.png");
+enemyImage = loadImage("images/enemyImage.png");
+}
 function draw() {
   // A pink background
-  background(0);
+  background(100);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -159,7 +164,7 @@ if (mouseIsPressed) {
     textFont('Helvetica');
     textSize(95);
     textAlign(CENTER);
-    text("YOU SUCK",250,250);
+    text("RIP",250,250);
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -175,7 +180,7 @@ if (mouseIsPressed) {
     textFont('Helvetica');
     textSize(95);
     textAlign(CENTER);
-    text("YOU SUCK",250,250);
+    text("RIP",250,250);
     enemyX = 0;
     enemyY = random(0,height);
     enemySize = 50;
@@ -205,16 +210,10 @@ if (mouseIsPressed) {
 
   // Display the current number of successful in the console
   console.log(dodges);
-
-  // The player is black
-  fill(255,255,0);
-  // Draw the player as a circle
-  rect(avatarX,avatarY,avatarSize,avatarSize);
-
-  // The enemy is red
-  fill(255,0,0);
-  // Draw the enemy as a circle
-  rect(enemyX,enemyY,enemySize,enemySize);
+  // Draw the player as a image
+  image(avatarImage,avatarX,avatarY,avatarSize,avatarSize);
+  // Draw the enemy as a image
+  image(enemyImage,enemyX,enemyY,enemySize,enemySize);
 
  //display dodges
 fill(255);
