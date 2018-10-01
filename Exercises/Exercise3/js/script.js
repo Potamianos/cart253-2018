@@ -104,10 +104,21 @@ function setup() {
       image(decoyImage10,x,y);
     }
   }
-  //display sign
+
+  //display sign at top right corner of the window
 stroke(255);
+strokeWeight(10);
 fill(255,0,0);
 rect(windowWidth - 240,20,200,200);
+//add image of Dog
+image(targetImage, windowWidth - 130,100);
+//display wanted writting
+textFont("Impact");
+textSize(50);
+noStroke();
+fill(255);
+textAlign(CENTER,CENTER);
+text("FIND ME!",windowWidth - 140,170);
 
   // Once we've displayed all decoys, we choose a location for the target
   targetX = random(0,width);
@@ -117,6 +128,26 @@ rect(windowWidth - 240,20,200,200);
 }
 
 function draw() {
+  //stop the dog from being displayed under sign
+  while (targetX > windowWidth - 240 && targetY < 220) {
+    targetX = random(0,width);
+    targetY = random(0,height);
+    image(targetImage,targetX,targetY);
+    //display sign at top right corner of the window
+  stroke(255);
+  strokeWeight(10);
+  fill(255,0,0);
+  rect(windowWidth - 240,20,200,200);
+  //add image of Dog
+  image(targetImage, windowWidth - 130,100);
+  //display wanted writting
+  textFont("Impact");
+  textSize(50);
+  noStroke();
+  fill(255);
+  textAlign(CENTER,CENTER);
+  text("FIND ME!",windowWidth - 140,170);
+  }
   if (gameOver) {
     // Prepare our typography
     textFont("Helvetica");
