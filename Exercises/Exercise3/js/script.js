@@ -14,6 +14,9 @@ https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal
 var targetX;
 var targetY;
 var targetImage;
+// create variables for rectangle sign
+var signX;
+var signY;
 
 // The ten decoy images
 var decoyImage1;
@@ -60,7 +63,6 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   background("#ffff00");
   imageMode(CENTER);
-
   // Use a for loop to draw as many decoys as we need
   for (var i = 0; i < numDecoys; i++) {
     // Choose a random location for this decoy
@@ -102,6 +104,10 @@ function setup() {
       image(decoyImage10,x,y);
     }
   }
+  //display sign
+stroke(255);
+fill(255,0,0);
+rect(windowWidth - 240,20,200,200);
 
   // Once we've displayed all decoys, we choose a location for the target
   targetX = random(0,width);
@@ -119,7 +125,7 @@ function draw() {
     noStroke();
     fill(random(255));
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("YOU WON!",width/2,height/2);
 
     noFill();
     stroke(random(255));
