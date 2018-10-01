@@ -9,15 +9,22 @@ the visual noise of other animals.
 Animal images from:
 https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal-icon-set/
 ******************************************************************************/
-
+//size variables
+var sizeX;
+var sizeY;
+//speed variables
+var dogX;
+var dogY;
+var vx;
+var vy;
+var speed = 10;
+//alt to targetX targetY
+var locationX;
+var locationY;
 // Position and image of the sausage dog we're searching for
 var targetX;
 var targetY;
 var targetImage;
-// create variables for rectangle sign
-var signX;
-var signY;
-
 // The ten decoy images
 var decoyImage1;
 var decoyImage2;
@@ -32,7 +39,7 @@ var decoyImage10;
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
-var numDecoys = 100;
+var numDecoys;
 
 // Keep track of whether they've won
 var gameOver = false;
@@ -60,11 +67,17 @@ function preload() {
 // Creates the canvas, sets basic modes, draws correct number
 // of decoys in random positions, then the target
 function setup() {
+  //define number of numDecoys
+  var numDecoys = random(300,1000);
   createCanvas(windowWidth,windowHeight);
   background("#ffff00");
   imageMode(CENTER);
+
   // Use a for loop to draw as many decoys as we need
   for (var i = 0; i < numDecoys; i++) {
+    //create variables that change the size of the animals
+    var set = 128;
+    var setM = set*random(.5,1.5);
     // Choose a random location for this decoy
     var x = random(0,width);
     var y = random(0,height);
@@ -74,37 +87,43 @@ function setup() {
     // images, each with a 10% chance of being shown
     // We'll talk more about this nice quality of random soon enough
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y,setM,setM);
     }
     else if (r < 0.2) {
-      image(decoyImage2,x,y);
+      image(decoyImage2,x,y,setM,setM);
     }
     else if (r < 0.3) {
-      image(decoyImage3,x,y);
+      image(decoyImage3,x,y,setM,setM);
     }
     else if (r < 0.4) {
-      image(decoyImage4,x,y);
+      image(decoyImage4,x,y,setM,setM);
     }
     else if (r < 0.5) {
-      image(decoyImage5,x,y);
+      image(decoyImage5,x,y,setM,setM);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y,setM,setM);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y,setM,setM);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8,x,y,setM,setM);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9,x,y,setM,setM);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10,x,y,setM,setM);
     }
   }
 
+
+  // Once we've displayed all decoys, we choose a location for the target
+  targetX = random(0,width);
+  targetY = random(0,height);
+  // And draw it (this means it will always be on top)
+  image(targetImage,targetX,targetY);
   //display sign at top right corner of the window
 stroke(255);
 strokeWeight(10);
@@ -119,19 +138,22 @@ noStroke();
 fill(255);
 textAlign(CENTER,CENTER);
 text("FIND ME!",windowWidth - 140,170);
-
-  // Once we've displayed all decoys, we choose a location for the target
-  targetX = random(0,width);
-  targetY = random(0,height);
-  // And draw it (this means it will always be on top)
-  image(targetImage,targetX,targetY);
+//define speed
+dogX = targetX;
+dogY = targetY;
+vx = speed;
+vy = -speed;
 }
 
 function draw() {
   //stop the dog from being displayed under sign
   while (targetX > windowWidth - 240 && targetY < 220) {
+    console.log ("OVERLAP");
     targetX = random(0,width);
     targetY = random(0,height);
+    //set dogxy again
+    dogX = targetX;
+    dogY = targetY;
     image(targetImage,targetX,targetY);
     //display sign at top right corner of the window
   stroke(255);
@@ -162,6 +184,26 @@ function draw() {
     stroke(random(255));
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    //make the dog move/grow
+    dogX = dogX + vx;
+    dogY =  dogY + vy;
+    sizeX = random(50,500);
+    sizeY = random(50,500);
+    image(targetImage,dogX,dogY,sizeX,sizeY);
+    //stop the dog from leaving
+    if ( dogX < 0) {
+      dogX += windowWidth + 2;
+    }
+    else if(dogX > windowWidth) {
+      dogX -= windowWidth - 2;
+    }
+    if (dogY < 0){
+      dogY += windowHeight + 2;
+    }
+    else if (dogY > windowHeight) {
+      dogY -= windowHeight - 2;
+
+    }
   }
 }
 
