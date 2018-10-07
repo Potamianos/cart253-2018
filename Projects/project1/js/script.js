@@ -12,6 +12,14 @@ sprinting, random movement, screen wrap.
 
 // Track whether the game is over
 var gameOver = false;
+//time varrable;
+var t = 0;
+var tx = 0;
+var ty = 0;
+//noise varriable;
+var nt = 0;
+var nx = 0;
+var ny = 0;
 
 // Player position, size, velocity
 var playerX;
@@ -197,24 +205,20 @@ function checkEating() {
 
 // movePrey()
 //
-// Moves the prey based on random velocity changes
+// Moves the prey based on noise velocity changes
 function movePrey() {
-  // Change the prey's velocity at random intervals
-  // random() will be < 0.05 5% of the time, so the prey
-  // will change direction on 5% of frames
-  if (random() < 0.05) {
-    // Set velocity based on random values to get a new direction
-    // and speed of movement
-    // Use map() to convert from the 0-1 range of the random() function
-    // to the appropriate range of velocities for the prey
-    preyVX = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-    preyVY = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-  }
+  //noise time values
+    tx = tx + .005;
+    ty = ty + .005;
+    nx = noise(tx);
+    ny = noise(ty);
+    //map noise to correspond to prey XY velocity
+    preyVX = map(nx,0,1,-preyMaxSpeed,preyMaxSpeed);
+    preyVY = map(ny,0,1,-preyMaxSpeed,preyMaxSpeed);
 
   // Update prey position based on velocity
   preyX += preyVX;
   preyY += preyVY;
-
   // Screen wrapping
   if (preyX < 0) {
     preyX += width;
