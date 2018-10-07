@@ -12,12 +12,10 @@ sprinting, random movement, screen wrap.
 
 // Track whether the game is over
 var gameOver = false;
-//time varrable;
-var t = 0;
+//time varrable for prey;
 var tx = 0;
 var ty = 0;
-//noise varriable;
-var nt = 0;
+//noise varriable for prey;
 var nx = 0;
 var ny = 0;
 
@@ -115,6 +113,18 @@ function draw() {
 //
 // Checks arrow keys and adjusts player velocity accordingly
 function handleInput() {
+  //sprint function
+  if (keyIsDown(SHIFT)) {
+    //shift will allow the player a speed of 5
+playerMaxSpeed = 5;
+//subtract 1 health per everyframe shift is held
+playerHealth --;
+  }
+  // reset speed when shift is released
+  else {
+    playerMaxSpeed = 2;
+  }
+
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
