@@ -9,7 +9,17 @@ Physics-based movement, keyboard controls, health/stamina,
 sprinting, random movement, screen wrap.
 
 ******************************************************/
-
+//IMAGE varriable for prey and player
+var mb;
+var preyImage;
+var playerImage;
+//sounds
+var power;
+var gameMusic;
+//rgb colors
+var r = 0;
+var g = 100;
+var b = 15;
 // Track whether the game is over
 var gameOver = false;
 //time varrable for prey;
@@ -41,7 +51,7 @@ var preyVY;
 var preyMaxSpeed = 4;
 // Prey health
 var preyHealth;
-var preyMaxHealth = 100;
+var preyMaxHealth = 255;
 // Prey fill color
 var preyFill = 200;
 
@@ -50,16 +60,31 @@ var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
 
+
+function preload(){
+  //preload all images
+  preyImage = loadImage("assets/images/virus.png");
+  playerImage = loadImage("assets/images/antivirus.png");
+  mb = loadImage("assets/images/motherboard.png");
+  //preload all sounds
+  gameMusic = new Audio("assets/sounds/wave.wav");
+power = new Audio("assets/sounds/power.wav")
+
+
+
+}
 // setup()
 //
 // Sets up the basic elements of the game
 function setup() {
+
   createCanvas(500,500);
 
   noStroke();
 
   setupPrey();
   setupPlayer();
+
 }
 
 // setupPrey()
@@ -90,7 +115,14 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100,100,200);
+//fades background when loss occurs
+  bgColor();
+  //display green background
+  background(r,g,b);
+  // display motherboard over background
+  //image fades to black corresponding to playerHealth
+  tint(playerHealth,255);
+  image(mb,0,0,500,500);
 
   if (!gameOver) {
     handleInput();
@@ -103,6 +135,7 @@ function draw() {
 
     drawPrey();
     drawPlayer();
+    displayHUD();
   }
   else {
     showGameOver();
@@ -120,9 +153,11 @@ playerMaxSpeed = 5;
 //subtract 1 health per everyframe shift is held
 playerHealth --;
   }
-  // reset speed when shift is released
+  // reset speed when shift is released/if it is not pressed
   else {
     playerMaxSpeed = 2;
+    //stop reduction of health
+    playerHealth = playerHealth;
   }
 
   // Check for horizontal movement
@@ -209,6 +244,10 @@ function checkEating() {
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten++;
+      //make the size of the player larger by 1
+      playerRadius = playerRadius + 1;
+      //add speed to prey
+      preyMaxSpeed = preyMaxSpeed * 1.05;
     }
   }
 }
@@ -219,7 +258,7 @@ function checkEating() {
 function movePrey() {
   //noise time values
     tx = tx + .005;
-    ty = ty + .005;
+    ty = ty + .015;
     nx = noise(tx);
     ny = noise(ty);
     //map noise to correspond to prey XY velocity
@@ -249,27 +288,58 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  fill(preyFill,preyHealth);
-  ellipse(preyX,preyY,preyRadius*2);
+  tint(255,preyHealth);
+  image(preyImage,preyX,preyY,preyRadius*2,preyRadius*2);
 }
 
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  tint(255,255);
+  image(playerImage,playerX,playerY,playerRadius*2,playerRadius*2);
 }
 
 // showGameOver()
 //
 // Display text about the game being over!
 function showGameOver() {
-  textSize(32);
+  textSize(20);
   textAlign(CENTER,CENTER);
-  fill(0);
+  fill(255);
   var gameOverText = "GAME OVER\n";
-  gameOverText += "You ate " + preyEaten + " prey\n";
-  gameOverText += "before you died."
+  gameOverText += "You placed " + preyEaten + " Infected file(s) in quarantine\n";
+  gameOverText += "before the pc crashed."
   text(gameOverText,width/2,height/2);
+
+}
+// displayHUD
+//
+// display score
+function displayHUD(){
+fill(255);
+textAlign(CENTER);
+textFont("IMPACT");
+textSize(20);
+text("Score " + preyEaten,50,450);
+//make a rectangle to underline caption
+fill(255,150,0);
+rectMode(CENTER);
+rect(250,50,175,10);
+//display caption
+fill(255);
+textAlign(CENTER);
+textFont("IMPACT");
+textSize(20);
+text("Take Out The Virus",250,50);
+}
+// bgColor
+//
+//fade to black
+function bgColor() {
+if (gameOver === true) {
+r--;
+g--;
+b--;
+}
 }
