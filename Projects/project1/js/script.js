@@ -115,13 +115,15 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
+  //start gameMusic
+  gameMusic.play();
 //fades background when loss occurs
   bgColor();
   //display green background
   background(r,g,b);
   // display motherboard over background
   //image fades to black corresponding to playerHealth
-  tint(playerHealth,255);
+  tint(255,playerHealth);
   image(mb,0,0,500,500);
 
   if (!gameOver) {
@@ -245,7 +247,7 @@ function checkEating() {
       // Track how many prey were eaten
       preyEaten++;
       //make the size of the player larger by 1
-      playerRadius = playerRadius + 1;
+      playerRadius = random(15,50);
       //add speed to prey
       preyMaxSpeed = preyMaxSpeed * 1.05;
     }
@@ -288,7 +290,7 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  tint(255,preyHealth);
+  tint(225,preyHealth);
   image(preyImage,preyX,preyY,preyRadius*2,preyRadius*2);
 }
 
