@@ -254,7 +254,7 @@ function checkEating() {
       // Track how many prey were eaten
       preyEaten++;
       //add speed to prey
-      preyMaxSpeed = preyMaxSpeed * 1.1;
+      preyMaxSpeed = preyMaxSpeed * 1.01;
       //make prey smaller by .01
       preyRadius = preyRadius - 0.01;
       //play eat sound
