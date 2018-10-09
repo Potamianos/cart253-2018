@@ -253,12 +253,11 @@ function checkEating() {
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten++;
-      //make the size of the player larger by 1
-      playerRadius++;
       //add speed to prey
-      preyMaxSpeed = preyMaxSpeed * 1.01;
+      preyMaxSpeed = preyMaxSpeed * 1.1;
       //make prey smaller by .01
       preyRadius = preyRadius - 0.01;
+      //play eat sound
       nom.play();
     }
   }
