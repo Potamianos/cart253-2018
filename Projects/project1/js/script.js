@@ -84,6 +84,9 @@ function setup() {
 
   setupPrey();
   setupPlayer();
+  //start gameMusic
+  gameMusic.loop = true;
+  gameMusic.play();
 
 }
 
@@ -115,8 +118,7 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  //start gameMusic
-  gameMusic.play();
+
 //fades background when loss occurs
   bgColor();
   //display green background
@@ -138,6 +140,7 @@ function draw() {
     drawPrey();
     drawPlayer();
     displayHUD();
+    speedUP();
   }
   else {
     showGameOver();
@@ -221,6 +224,8 @@ function updateHealth() {
   if (playerHealth === 0) {
     // If so, the game is over
     gameOver = true;
+    gameMusic.pause();
+    power.play();
   }
 }
 
@@ -344,4 +349,12 @@ r--;
 g--;
 b--;
 }
+}
+//speedUP()
+//
+//speeds up prey after every ten levels until 20
+function speedUP(){
+// if (preyEaten === 2) {
+//   preyMaxSpeed = 2 *
+// }
 }
