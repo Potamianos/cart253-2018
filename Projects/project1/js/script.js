@@ -304,6 +304,12 @@ function movePrey() {
 function drawPrey() {
   tint(225,preyHealth);
   image(preyImage,preyX,preyY,preyRadius*2,preyRadius*2);
+  //if prey is invisable to player place dot to signal prey's location
+  if (preyHealth < 110){
+    fill(255,150,0);
+    ellipse(preyX + 25,preyY + 25,10);
+
+  }
 }
 
 // drawPlayer()
