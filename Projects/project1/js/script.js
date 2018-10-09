@@ -9,7 +9,8 @@ Physics-based movement, keyboard controls, health/stamina,
 sprinting, random movement, screen wrap.
 
 ******************************************************/
-//IMAGE varriable for prey and player
+//IMAGE varriables
+var ds;
 var mb;
 var preyImage;
 var playerImage;
@@ -67,6 +68,7 @@ function preload(){
   preyImage = loadImage("assets/images/virus.png");
   playerImage = loadImage("assets/images/antivirus.png");
   mb = loadImage("assets/images/motherboard.png");
+  ds = loadImage("assets/images/ds.png");
   //preload all sounds
   gameMusic = new Audio("assets/sounds/wave.wav");
 power = new Audio("assets/sounds/power.wav")
@@ -87,7 +89,7 @@ function setup() {
 
   setupPrey();
   setupPlayer();
-  //start gameMusic
+  //start gameMusic & loop
   gameMusic.loop = true;
   gameMusic.play();
 
@@ -142,7 +144,9 @@ function draw() {
 
     drawPrey();
     drawPlayer();
+    deathSymbol();
     displayHUD();
+
   }
   else {
     showGameOver();
@@ -157,7 +161,7 @@ function handleInput() {
   if (keyIsDown(SHIFT)) {
     //shift will allow the player ot acelerate at a cost of health
 playerMaxSpeed = playerMaxSpeed + 0.2;
-//subtract 1 health per everyframe shift is held
+//subtract 1.2 health per everyframe shift is held
 playerHealth = playerHealth - 1.2;
   }
   // reset speed when shift is released/if it is not pressed
@@ -313,7 +317,7 @@ function drawPrey() {
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  tint(255,255);
+  tint(255,playerHealth);
   image(playerImage,playerX,playerY,playerRadius*2,playerRadius*2);
 }
 
@@ -363,4 +367,15 @@ r--;
 g--;
 b--;
 }
+}
+//deathSymbol
+//
+//when player is below 150 heath display a skull over them
+function deathSymbol(){
+var dsm = map(playerHealth,150,0,0,255);
+push();
+tint(255,dsm);
+imageMode(CENTER);
+image(ds,playerX + 25,playerY + 25,50,50);
+pop();
 }
