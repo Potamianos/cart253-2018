@@ -163,8 +163,6 @@ playerHealth = playerHealth - 1.2;
   // reset speed when shift is released/if it is not pressed
   else {
     playerMaxSpeed = 2;
-    //stop reduction of health
-    playerHealth = playerHealth;
   }
 
   // Check for horizontal movement
