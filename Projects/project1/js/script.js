@@ -16,6 +16,7 @@ var playerImage;
 //sounds
 var power;
 var gameMusic;
+var nom;
 //rgb colors
 var r = 0;
 var g = 100;
@@ -69,6 +70,7 @@ function preload(){
   //preload all sounds
   gameMusic = new Audio("assets/sounds/wave.wav");
 power = new Audio("assets/sounds/power.wav")
+nom = new Audio("assets/sounds/nom.mp3")
 
 
 
@@ -81,6 +83,7 @@ function setup() {
   createCanvas(500,500);
 
   noStroke();
+
 
   setupPrey();
   setupPlayer();
@@ -140,7 +143,6 @@ function draw() {
     drawPrey();
     drawPlayer();
     displayHUD();
-    speedUP();
   }
   else {
     showGameOver();
@@ -153,10 +155,10 @@ function draw() {
 function handleInput() {
   //sprint function
   if (keyIsDown(SHIFT)) {
-    //shift will allow the player a speed of 5
-playerMaxSpeed = 5;
+    //shift will allow the player ot acelerate at a cost of health
+playerMaxSpeed = playerMaxSpeed + 0.2;
 //subtract 1 health per everyframe shift is held
-playerHealth --;
+playerHealth = playerHealth - 1.2;
   }
   // reset speed when shift is released/if it is not pressed
   else {
@@ -224,7 +226,9 @@ function updateHealth() {
   if (playerHealth === 0) {
     // If so, the game is over
     gameOver = true;
+    //stop gamemusic
     gameMusic.pause();
+    //play end game music
     power.play();
   }
 }
@@ -252,9 +256,12 @@ function checkEating() {
       // Track how many prey were eaten
       preyEaten++;
       //make the size of the player larger by 1
-      playerRadius = random(15,50);
+      playerRadius++;
       //add speed to prey
-      preyMaxSpeed = preyMaxSpeed * 1.05;
+      preyMaxSpeed = preyMaxSpeed * 1.01;
+      //make prey smaller by .01
+      preyRadius = preyRadius - 0.01;
+      nom.play();
     }
   }
 }
@@ -339,6 +346,10 @@ textAlign(CENTER);
 textFont("IMPACT");
 textSize(20);
 text("Take Out The Virus",250,50);
+fill(255);
+textAlign(CENTER);
+textSize(15);
+text("Shift to Sprint",445,493);
 }
 // bgColor
 //
@@ -349,12 +360,4 @@ r--;
 g--;
 b--;
 }
-}
-//speedUP()
-//
-//speeds up prey after every ten levels until 20
-function speedUP(){
-// if (preyEaten === 2) {
-//   preyMaxSpeed = 2 *
-// }
 }
